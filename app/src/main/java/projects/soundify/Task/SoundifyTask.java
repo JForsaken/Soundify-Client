@@ -7,10 +7,14 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
+import fi.iki.elonen.NanoHTTPD;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import projects.soundify.Controller.MusicController;
 
 /**
  * Created by joseph on 2016-06-08.
@@ -38,7 +42,7 @@ public abstract class SoundifyTask extends AsyncTask {
         client = new OkHttpClient();
     }
 
-    protected String getServerUrl(String action) {
+    protected String getActionUrl(String action) {
         String actionType = null;
 
         if (isStreaming == true) {
@@ -48,23 +52,26 @@ public abstract class SoundifyTask extends AsyncTask {
             actionType = "action";
         }
 
-        String serverUrl = String.format("http://%1$s:%2$s/%3$s/%4$s", ip, port, actionType, action);
+        String actionUrl = String.format("%1$s/%2$s/%3$s", getServerUrl(), actionType, action);
 
-        return serverUrl;
+        return actionUrl;
     }
 
-    protected String getSongUrl(String songPath) {
-        return String.format("Http://%1$s:%2$s%3$s", ip, port, songPath);
+    protected String getServerUrl() {
+        return String.format("http://%1$s:%2$s", ip, port);
     }
 
     protected Response executeGet(String action) throws IOException {
-        String url = getServerUrl(action);
+        String url = getActionUrl(action);
         request = new Request.Builder().url(url).build();
         response = client.newCall(request).execute();
         return response;
     }
 
-    protected String executeStreaming(String songPath) {
-        return String.format("Http://%1$s:%2$s%3$s", ip, port, songPath);
+    protected void executeStream(String path) throws IOException {
+        String songFolder = path.substring(0, path.lastIndexOf("/") + 1);
+        String songName = path.substring(path.lastIndexOf("/") + 1, path.length());
+        String encodedSongName = URLEncoder.encode(songName, "utf-8");
+        MusicController.getInstance(activity).init(getServerUrl() + songFolder + encodedSongName);
     }
 }

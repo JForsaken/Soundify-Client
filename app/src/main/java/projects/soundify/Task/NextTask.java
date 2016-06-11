@@ -3,6 +3,7 @@ package projects.soundify.Task;
 import android.app.Activity;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 
 import projects.soundify.Controller.MusicController;
 import projects.soundify.Song;
@@ -25,10 +26,9 @@ public class NextTask extends SoundifyTask {
             Song song = gson.fromJson(executeGet(ACTION).body().string(), Song.class);
 
             if (isStreaming) {
-                executeStreaming(song.getPath());
+                executeStream(song.getPath());
                 MusicController.getInstance(activity).play();
             }
-
         }
         catch (IOException e) {
             e.printStackTrace();

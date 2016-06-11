@@ -1,9 +1,11 @@
 package projects.soundify.Task;
 
 import android.app.Activity;
+import android.net.Uri;
 import android.widget.TextView;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.concurrent.TimeUnit;
 
 import projects.soundify.Controller.MusicController;
@@ -32,8 +34,7 @@ public class PlayTask extends SoundifyTask {
             if (isStreaming) {
 
                 if (MusicController.getInstance(activity).isPaused() == false) {
-                    String mediaPlayerUrl = executeStreaming(song.getPath());
-                    MusicController.getInstance(activity).init(mediaPlayerUrl);
+                    executeStream(song.getPath());
                 }
 
                 MusicController.getInstance(activity).play();
