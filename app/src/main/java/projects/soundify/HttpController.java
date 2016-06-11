@@ -1,181 +1,184 @@
 package projects.soundify;
 
+import android.annotation.TargetApi;
+import android.app.Activity;
+import android.content.SharedPreferences;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.os.Environment;
+import android.os.AsyncTask;
+import android.os.Build;
+import android.preference.PreferenceManager;
 
-import org.jaudiotagger.audio.AudioFile;
-import org.jaudiotagger.audio.AudioFileIO;
-import org.jaudiotagger.audio.exceptions.CannotReadException;
-import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
-import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
-import org.jaudiotagger.tag.FieldKey;
-import org.jaudiotagger.tag.Tag;
-import org.jaudiotagger.tag.TagException;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import projects.soundify.Task.NextTask;
+import projects.soundify.Task.PauseTask;
+import projects.soundify.Task.PlayTask;
+import projects.soundify.Task.PreviousTask;
+import projects.soundify.Task.RepeatTask;
+import projects.soundify.Task.ShuffleTask;
+import projects.soundify.Task.StopTask;
 
 /**
  * Created by jderrico on 16-05-17.
  */
 public class HttpController {
-    private static HttpController _instance = new HttpController();
+    private static HttpController _instance = null;
+    private static SharedPreferences _sharedPreferences = null;
+    private static MediaPlayer mediaPlayer;
+    private static Activity _activity;
 
-    private ArrayList<Song> _songList = new ArrayList<Song>();
-    private ArrayList<Integer> _songOrder  = new ArrayList<Integer>();
-    private int _currentIndex = 0;
+    private HttpController() {}
 
-    MediaPlayer _mediaPlayer = new MediaPlayer();
-    private boolean _isPlaylistLooping = false;
-    private boolean _isSongLooping = false;
+    public static HttpController getInstance(Activity activity) {
 
-    public static HttpController getInstance() {
+        _activity = activity;
+
+        if (_instance == null) {
+            _instance = new HttpController();
+            _sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
+            mediaPlayer = new MediaPlayer();
+            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        }
+
         return _instance;
     }
 
-    private HttpController() {
+    public void play(boolean isStreaming, boolean isResponseRequired) {
+        //sendRequest(isStreaming, isResponseRequired, "play");
+        AsyncTask task = new PlayTask(_activity, getIP(), getPort(), isStreaming);
+        task.execute();
     }
-    
-    public void init() {
-        /* _songList.clear();
-        _songOrder.clear();
-        _mediaPlayer.reset();
-        _currentIndex = 0;
 
-        File file = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-        File[] listOfFiles  = file.listFiles();
+    public void pause(boolean isStreaming, boolean isResponseRequired) {
+        //sendRequest(isStreaming, isResponseRequired, "pause");
+        AsyncTask task = new PauseTask(_activity, getIP(), getPort(), isStreaming);
+        task.execute();
+    }
 
-        for (int i = 0; i < listOfFiles.length; i++) {
-            if (listOfFiles[i].isFile()) {
-                AudioFile f = null;
+    public void stop(boolean isStreaming, boolean isResponseRequired) {
+        //sendRequest(isStreaming, isResponseRequired, "stop");
+        AsyncTask task = new StopTask(_activity, getIP(), getPort(), isStreaming);
+        task.execute();
+    }
+
+    public void shuffle(boolean isStreaming, boolean isResponseRequired) {
+        //sendRequest(isStreaming, isResponseRequired, "shuffle");
+        AsyncTask task = new ShuffleTask(_activity, getIP(), getPort(), isStreaming);
+        task.execute();
+    }
+
+    public void repeat(boolean isStreaming, boolean isResponseRequired) {
+        //sendRequest(isStreaming, isResponseRequired, "repeat");
+        AsyncTask task = new RepeatTask(_activity, getIP(), getPort(), isStreaming);
+        task.execute();
+    }
+
+    public void next(boolean isStreaming, boolean isResponseRequired) {
+        //sendRequest(isStreaming, isResponseRequired, "next");
+        AsyncTask task = new NextTask(_activity, getIP(), getPort(), isStreaming);
+        task.execute();
+    }
+
+    public void previous(boolean isStreaming, boolean isResponseRequired) {
+        //sendRequest(isStreaming, isResponseRequired, "previous");
+        AsyncTask task = new PreviousTask(_activity, getIP(), getPort(), isStreaming);
+        task.execute();
+    }
+
+    @TargetApi(Build.VERSION_CODES.CUPCAKE)
+    public void sendRequest(boolean isStreaming, final boolean isResponseRequired, String action) {
+        AsyncTask requestTask = new AsyncTask() {
+
+            @Override
+            protected Object doInBackground(Object[] objects) {
+
+                boolean isStreaming = (boolean) objects[0];
+                String action = (String) objects[1];
+                String IP =  _sharedPreferences.getString("soundify_IP", "255.255.255.255");
+                String port = _sharedPreferences.getString("soundify_Port", "8080");
+                String url = String.format("Http://%1$s:%2$s/%3$s/%4$s", IP, port
+                        , isStreaming ? "stream" : "action", action);
+
+                OkHttpClient client = null;
+                Request request = null;
+                Response response = null;
+
                 try {
-                    f = AudioFileIO.read(listOfFiles[i]);
-                } catch (CannotReadException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (TagException e) {
-                    e.printStackTrace();
-                } catch (ReadOnlyFileException e) {
-                    e.printStackTrace();
-                } catch (InvalidAudioFrameException e) {
+
+                    client = new OkHttpClient();
+
+                    request = new Request.Builder()
+                            .url(url)
+                            .build();
+
+                    response = client.newCall(request).execute();
+
+                    Gson gson = new GsonBuilder().create();
+                    Song song = null;
+
+                    if (isResponseRequired) {
+                         song = gson.fromJson(response.body().string(), Song.class);
+                        updateSongInformation(song);
+                    }
+
+
+                    if (isStreaming == true) {
+
+                        if (isResponseRequired) {
+                            String mediaPlayerUrl = String.format("Http://%1$s:%2$s%3$s", IP, port
+                                    , song.getPath());
+
+                            mediaPlayer.reset();
+                            mediaPlayer.setDataSource("http://192.168.43.193:8080/storage/emulated/0/Music/1.mp3");
+                            mediaPlayer.prepare();
+                        }
+
+                        switch (action) {
+                            case "play":
+                                mediaPlayer.start();
+                                break;
+                            case "pause":
+                                mediaPlayer.pause();
+                                break;
+                            case "stop":
+                                mediaPlayer.stop();
+                                break;
+                            case "next":
+                            case "previous":
+                                mediaPlayer.pause();
+                                mediaPlayer.reset();
+                                mediaPlayer.start();
+                                break;
+                        }
+                    }
+                }
+                catch (IOException e) {
                     e.printStackTrace();
                 }
 
-                Tag tag = f.getTag();
-
-                String title = tag.getFirst(FieldKey.TITLE);
-                String artist = tag.getFirst(FieldKey.ARTIST);
-                String composer = tag.getFirst(FieldKey.COMPOSER);
-                String genre = tag.getFirst(FieldKey.GENRE);
-                String album = tag.getFirst(FieldKey.ALBUM);
-
-                Song currentSong = new Song(i, listOfFiles[i].getPath(), title, artist, composer, genre, album);
-                _songList.add(currentSong);
-                _songOrder.add(i);
+                return null;
             }
-        }
+        };
 
-        // adds a listener to the song completion event
-        _mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                performOnSongEnd();
-            }
-        });
-
-        prepareSong(_songList.get(0));
-        */
+        requestTask.execute(isStreaming, action);
     }
 
-    public void play() {
-        //_mediaPlayer.start();
+    private void updateSongInformation(Song song) {
+        //TODO : Ajouter l'update de l'interface
     }
 
-    public void stop() {
-        //_mediaPlayer.pause();
+    private String getIP() {
+        return _sharedPreferences.getString("soundify_IP", "255.255.255.255");
     }
 
-    public void shuffle() {
-        //randomizeOrder();
-    }
-
-    public void repeat() {
-        //_isSongLooping = !_isSongLooping;
-    }
-
-    public void next() {
-        //changeSong(true, false);
-    }
-
-    public void previous() {
-        //changeSong(false, false);
-    }
-
-    private void changeSong(boolean isForward, boolean autoPlay) {
-        /* final boolean isPlaying = _mediaPlayer.isPlaying();
-
-        if (isForward) {
-            if (_currentIndex == _songList.size() - 1) {
-                _currentIndex = 0;
-            } else {
-                _currentIndex++;
-            }
-        }
-        else {
-            if (_currentIndex == 0) {
-                _currentIndex = _songList.size() - 1;
-            } else {
-                _currentIndex--;
-            }
-        }
-
-        _mediaPlayer.stop();
-        _mediaPlayer.reset();
-        prepareSong(_songList.get(_songOrder.get(_currentIndex)));
-        if (isPlaying || autoPlay) { _mediaPlayer.start(); }
-        */
-    }
-
-    private void prepareSong(Song song) {
-        /*try {
-            _mediaPlayer.setDataSource(song.getPath());
-            _mediaPlayer.prepare();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
-    }
-
-    private void randomizeOrder() {
-        /*final int currentSong = _songOrder.get(_currentIndex);
-
-        _songOrder.clear();
-        for (int i = 0; i < _songList.size(); i++) {
-            if (i != currentSong) { _songOrder.add(i); }
-        }
-        Collections.shuffle(_songOrder);
-
-        // start the order with the currently playing song
-        _songOrder.add(0, currentSong);*/
-    }
-
-    private void performOnSongEnd() {
-        /*if (_isSongLooping) {
-            _mediaPlayer.stop();
-            _mediaPlayer.reset();
-            prepareSong(_songList.get(_songOrder.get(_currentIndex)));
-        }
-        else {
-            // if the playlist ends
-            if (!_isPlaylistLooping && _currentIndex == _songList.size() - 1) {
-                _mediaPlayer.stop();
-                _mediaPlayer.reset();
-                _currentIndex = 0;
-            }
-            else { changeSong(true, true); }
-        }
-        */
+    private String getPort() {
+        return _sharedPreferences.getString("soundify_Port", "8080");
     }
 }

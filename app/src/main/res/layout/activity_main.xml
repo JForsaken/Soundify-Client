@@ -5,10 +5,16 @@
     android:id="@+id/db1_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
 
         <Button
-            android:layout_width="82dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Setting"
             android:id="@+id/btnSetting"
@@ -17,36 +23,60 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Previous"
-            android:id="@+id/bntPrevious"
-            android:layout_above="@+id/btnPause"
-            android:layout_toEndOf="@+id/btnPause"
-            android:onClick="previous" />
+            android:text="Play"
+            android:id="@+id/btnPlay"
+            android:onClick="play" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Pause"
             android:id="@+id/btnPause"
-            android:layout_below="@+id/btnNext"
-            android:layout_alignStart="@+id/btnPlay"
             android:onClick="pause" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Play"
-            android:id="@+id/btnPlay"
-            android:layout_alignTop="@+id/bntPrevious"
-            android:layout_alignParentStart="true"
-            android:onClick="play" />
+            android:text="Stop"
+            android:id="@+id/btnStop"
+            android:onClick="stop" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Previous"
+            android:id="@+id/btnPrevious"
+            android:onClick="previous" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Next"
             android:id="@+id/btnNext"
-            android:layout_centerVertical="true"
-            android:layout_toStartOf="@+id/btnPause"
             android:onClick="next" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Repeat"
+            android:id="@+id/btnRepeat"
+            android:onClick="repeat" />
+
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Streaming"
+            android:id="@+id/switchStreaming"
+            android:layout_gravity="center_vertical"
+            android:checked="false" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="0:00"
+            android:id="@+id/txtDuration"
+            android:layout_gravity="center_horizontal" />
+    </LinearLayout>
+
 </LinearLayout>

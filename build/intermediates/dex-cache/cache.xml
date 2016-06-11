@@ -1,3 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" />
+<items version="2" >
 
+    <item
+        jar="C:\Users\josep\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.3.0\support-annotations-23.3.0.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="db7791d75a07fef9844d06236c1c59ba7bf6997c">
+        <dex dex="C:\Users\josep\Desktop\GTI785\Lab\Soundify-Client\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-23.3.0_9078cf728605f3a8a1858183ef273e8c23c5922b\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\josep\.gradle\caches\modules-2\files-2.1\com.squareup.okio\okio\1.8.0\5ea7af56cc7c567ed9856d99efb30740e9b17ff\okio-1.8.0.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="05ea7af56cc7c567ed9856d99efb30740e9b17ff">
+        <dex dex="C:\Users\josep\Desktop\GTI785\Lab\Soundify-Client\app\build\intermediates\transforms\dex\debug\folders\1000\10\okio-1.8.0_d39927829cf4794f00580f0d5175a35143137323\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\josep\Desktop\GTI785\Lab\Soundify-Client\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.3.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="8a034dd16c0dfd75fe86c52c2cd581592acc684a">
+        <dex dex="C:\Users\josep\Desktop\GTI785\Lab\Soundify-Client\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-23.3.0_af9df6a21d9094b5fcc57ab9b0c00387bb91ab87\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\josep\Desktop\GTI785\Lab\Soundify-Client\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\23.3.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="23be6993826b8fd88bbc8d14928bb3b8960d3d4e">
+        <dex dex="C:\Users\josep\Desktop\GTI785\Lab\Soundify-Client\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-animated-vector-drawable-23.3.0_48cae37bd96d309246ec147a489f4142eada488e\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\josep\Desktop\GTI785\Lab\Soundify-Client\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\23.3.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="a0b5d60246cd9d4f3f2443611b3b4c25265840b5">
+        <dex dex="C:\Users\josep\Desktop\GTI785\Lab\Soundify-Client\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-vector-drawable-23.3.0_d4ff5964a75f5e9c0f9f9fc6bcb311ad15ac2096\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\josep\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp3\okhttp\3.3.1\19047bdb6a4fc00a44124f64ca98e88fc204e7e3\okhttp-3.3.1.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="19047bdb6a4fc00a44124f64ca98e88fc204e7e3">
+        <dex dex="C:\Users\josep\Desktop\GTI785\Lab\Soundify-Client\app\build\intermediates\transforms\dex\debug\folders\1000\10\okhttp-3.3.1_a12757ccd10570eb402467e8bd537915b59186c5\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\josep\Desktop\GTI785\Lab\Soundify-Client\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.3.0\jars\libs\internal_impl-23.3.0.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="4da5a4d697d32497c6f85567a5112e62fdfd0676">
+        <dex dex="C:\Users\josep\Desktop\GTI785\Lab\Soundify-Client\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-23.3.0_5ca4f4391d5f169bb27aced031711c5547de0ebb\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\josep\Desktop\GTI785\Lab\Soundify-Client\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="f84f64b73306d7ecf4866b7402e6dc5d692e9b6d">
+        <dex dex="C:\Users\josep\Desktop\GTI785\Lab\Soundify-Client\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_7ac9963754ec780f868699a3a2d52a5c3e9447d9\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\josep\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.6.2\f1bc476cc167b18e66c297df599b2377131a8947\gson-2.6.2.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="f1bc476cc167b18e66c297df599b2377131a8947">
+        <dex dex="C:\Users\josep\Desktop\GTI785\Lab\Soundify-Client\app\build\intermediates\transforms\dex\debug\folders\1000\10\gson-2.6.2_57b3e0c00eb9d8ac8986be40fd829d42890da829\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\josep\Desktop\GTI785\Lab\Soundify-Client\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.3.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="1b8e03daaa43fb0a4cd57e378167c2fd70454c1e">
+        <dex dex="C:\Users\josep\Desktop\GTI785\Lab\Soundify-Client\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-23.3.0_bfc5e8df45992b9d8757bf9f8a4b9a3df5aada77\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\josep\Desktop\GTI785\Lab\Soundify-Client\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="efd3b925c7408a086ac88e5433cb9f6c30784034">
+        <dex dex="C:\Users\josep\Desktop\GTI785\Lab\Soundify-Client\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_6af8392798046ef7578f59e3a673f657ea4b8621\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\josep\.gradle\caches\modules-2\files-2.1\com.nanohttpd\nanohttpd\2.1.1\82595b0b3190c8bdd988f307346e6edec9c09b72\nanohttpd-2.1.1.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="82595b0b3190c8bdd988f307346e6edec9c09b72">
+        <dex dex="C:\Users\josep\Desktop\GTI785\Lab\Soundify-Client\app\build\intermediates\transforms\dex\debug\folders\1000\10\nanohttpd-2.1.1_002998fa93c3f258ca54969d4b5c0c4589515c92\classes.dex" />
+    </item>
+
+</items>
