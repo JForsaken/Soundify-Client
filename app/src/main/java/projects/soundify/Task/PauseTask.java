@@ -9,6 +9,7 @@ import java.io.IOException;
 import projects.soundify.Controller.MusicController;
 import projects.soundify.R;
 import projects.soundify.Song;
+import projects.soundify.Timer.MusicTimer;
 
 /**
  * Created by joseph on 2016-06-08.
@@ -48,6 +49,7 @@ public class PauseTask extends SoundifyTask {
     private void updateView() {
         setPauseButtonVisibility(View.GONE);
         setPlayButtonVisibility(View.VISIBLE);
+        MusicTimer.getInstance().setPause(true);
     }
 
 

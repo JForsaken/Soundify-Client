@@ -1,13 +1,13 @@
 package projects.soundify.Task;
 
 import android.app.Activity;
-import android.net.Uri;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import java.io.IOException;
-import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import projects.soundify.Controller.MusicController;
@@ -54,24 +54,9 @@ public class PlayTask extends SoundifyTask {
         super.onPostExecute(o);
         Song song = (Song) o;
 
-        TextView txtDuration = (TextView) activity.findViewById(R.id.txtDuration);
-        Long minutes = TimeUnit.MICROSECONDS.toMinutes(Integer.parseInt(song.getDuration()));
-
         if (song != null) {
-            if (isStreaming == false) {
-                //txtDuration.setText(minutes.toString());
-            }
-            else {
-                if (MusicController.getInstance(activity).isPlaying()) {
-                    //txtDuration.setText(MusicController.getInstance(activity).getDuration());
-                }
-            }
-
-            //MusicTimer.getInstance(txtDuration).setup(Long.parseLong(song.getDuration()));
-            //MusicTimer.getInstance(txtDuration).run();
+            updateView(song);
         }
-
-        updateView(song);
     }
 
     private void updateView(Song song) {
@@ -86,6 +71,8 @@ public class PlayTask extends SoundifyTask {
         setPlayButtonVisibility(View.GONE);
         setPauseButtonVisibility(View.VISIBLE);
         setStopButtonVisibility(View.VISIBLE);
+
+        updateDuration(song);
     }
 
 
@@ -102,5 +89,17 @@ public class PlayTask extends SoundifyTask {
     private void setStopButtonVisibility(int visibility) {
         Button btnStop = (Button) activity.findViewById(R.id.btnStop);
         btnStop.setVisibility(visibility);
+    }
+
+    private void updateDuration(Song song) {
+        Long duration = Long.parseLong(song.getDuration());
+
+        if (MusicTimer.getInstance().isPaused() == false) {
+            MusicTimer.getInstance().setup(activity, duration, isStreaming);
+            MusicTimer.getInstance().run();
+        }
+        else {
+            MusicTimer.getInstance().setPause(false);
+        }
     }
 }

@@ -1,13 +1,11 @@
 package projects.soundify.Controller;
 
 import android.app.Activity;
-import android.content.Context;
 import android.media.MediaPlayer;
-import android.os.AsyncTask;
 
 import java.io.IOException;
 
-import projects.soundify.Task.NextTask;
+import projects.soundify.Timer.MusicTimer;
 
 /**
  * Created by joseph on 2016-06-08.
@@ -18,6 +16,7 @@ public class MusicController {
     private static MusicController _instance = null;
     private static MediaPlayer _mediaPlayer = null;
     private boolean _isPaused = false;
+    private static boolean _isServerLooping = false;
 
     public static MusicController getInstance(final Activity activity) {
 
@@ -29,7 +28,10 @@ public class MusicController {
             _mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
-                    HttpController.getInstance(activity).next(true);
+
+                    if (_isServerLooping) {
+                        HttpController.getInstance(activity).next(true);
+                    }
                 }
             });
         }
@@ -66,19 +68,20 @@ public class MusicController {
         _mediaPlayer.setLooping(!_mediaPlayer.isLooping());
     }
 
-    public boolean isPlaying() {
-        return _mediaPlayer.isPlaying();
-    }
-
     public boolean isPaused() {
         return _isPaused;
+    }
+
+    public void setServerLooping() {
+        _isServerLooping = !_isServerLooping;
+    }
+
+    public boolean isServerLooping() {
+        return _isServerLooping;
     }
 
     private void initMusicPlayerState() {
         _isPaused = false;
     }
 
-    public int getDuration() {
-        return _mediaPlayer.getDuration();
-    }
 }

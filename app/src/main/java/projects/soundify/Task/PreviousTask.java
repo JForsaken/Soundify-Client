@@ -9,6 +9,7 @@ import java.net.URLEncoder;
 import projects.soundify.Controller.MusicController;
 import projects.soundify.R;
 import projects.soundify.Song;
+import projects.soundify.Timer.MusicTimer;
 
 /**
  * Created by joseph on 2016-06-08.
@@ -58,5 +59,15 @@ public class PreviousTask extends SoundifyTask {
         title.setText(song.getTitle());
         artist.setText(song.getArtist());
         album.setText(song.getAlbum());
+
+        updateDuration(song);
+    }
+
+    private void updateDuration(Song song) {
+        Long duration = Long.parseLong(song.getDuration());
+        MusicTimer.getInstance().stop();
+        MusicTimer.getInstance().setup(activity, duration, isStreaming);
+        MusicTimer.getInstance().setPause(false);
+        MusicTimer.getInstance().run();
     }
 }

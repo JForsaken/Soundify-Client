@@ -29,6 +29,7 @@ public class RepeatTask extends SoundifyTask {
             }
             else {
                 executeGet(ACTION);
+                MusicController.getInstance(activity).setServerLooping();
             }
         }
         catch (IOException e) {
