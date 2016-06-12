@@ -2,6 +2,8 @@ package projects.soundify.Task;
 
 import android.app.Activity;
 import android.net.Uri;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.io.IOException;
@@ -68,5 +70,37 @@ public class PlayTask extends SoundifyTask {
             //MusicTimer.getInstance(txtDuration).setup(Long.parseLong(song.getDuration()));
             //MusicTimer.getInstance(txtDuration).run();
         }
+
+        updateView(song);
+    }
+
+    private void updateView(Song song) {
+        TextView title = (TextView) activity.findViewById(R.id.txtTitle);
+        TextView artist = (TextView) activity.findViewById(R.id.txtArtist);
+        TextView album = (TextView) activity.findViewById(R.id.txtAlbum);
+
+        title.setText(song.getTitle());
+        artist.setText(song.getArtist());
+        album.setText(song.getAlbum());
+
+        setPlayButtonVisibility(View.GONE);
+        setPauseButtonVisibility(View.VISIBLE);
+        setStopButtonVisibility(View.VISIBLE);
+    }
+
+
+    private void setPlayButtonVisibility(int visibility) {
+        Button btnPlay = (Button) activity.findViewById(R.id.btnPlay);
+        btnPlay.setVisibility(visibility);
+    }
+
+    private void setPauseButtonVisibility(int visibility) {
+        Button btnPause = (Button) activity.findViewById(R.id.btnPause);
+        btnPause.setVisibility(visibility);
+    }
+
+    private void setStopButtonVisibility(int visibility) {
+        Button btnStop = (Button) activity.findViewById(R.id.btnStop);
+        btnStop.setVisibility(visibility);
     }
 }

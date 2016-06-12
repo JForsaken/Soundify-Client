@@ -14,7 +14,8 @@ public class Song {
     private String album;
     private String duration;
 
-    public Song(int songID, String songPath, String songTitle, String songArtist, String songComposer, String songGenre, String songAlbum) {
+    public Song(int songID, String songPath, String songTitle, String songArtist,
+                String songComposer, String songGenre, String songAlbum, String songDuration) {
         id = songID;
         path = songPath;
 
@@ -23,11 +24,11 @@ public class Song {
         composer = songComposer;
         genre = songGenre;
         album = songAlbum;
+        duration = songDuration;
     }
 
     public int getID(){return id;}
     public String getPath(){return path;}
-
     public String getTitle(){return title;}
     public String getArtist(){return artist;}
     public String getComposer(){return composer;}
