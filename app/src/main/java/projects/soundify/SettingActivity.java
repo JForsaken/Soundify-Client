@@ -20,7 +20,7 @@ public class SettingActivity extends AppCompatActivity {
         EditText txtPort = (EditText) findViewById(R.id.txtPort);
 
         txtIP.setText(sharedPreferences.getString("soundify_IP", "255.255.255.255"));
-        txtPort.setText(sharedPreferences.getString("soundify_Port", "80"));
+        txtPort.setText(sharedPreferences.getString("soundify_Port", "8080"));
     }
 
     public void back(View view) {

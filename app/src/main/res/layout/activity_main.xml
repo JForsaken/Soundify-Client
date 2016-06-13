@@ -5,10 +5,16 @@
     android:id="@+id/db1_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
 
         <Button
-            android:layout_width="82dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Setting"
             android:id="@+id/btnSetting"
@@ -18,35 +24,154 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Previous"
-            android:id="@+id/bntPrevious"
-            android:layout_above="@+id/btnPause"
-            android:layout_toEndOf="@+id/btnPause"
+            android:id="@+id/btnPrevious"
             android:onClick="previous" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Pause"
-            android:id="@+id/btnPause"
-            android:layout_below="@+id/btnNext"
-            android:layout_alignStart="@+id/btnPlay"
-            android:onClick="pause" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Play"
             android:id="@+id/btnPlay"
-            android:layout_alignTop="@+id/bntPrevious"
-            android:layout_alignParentStart="true"
             android:onClick="play" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pause"
+            android:id="@+id/btnPause"
+            android:onClick="pause"
+            android:visibility="gone" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Stop"
+            android:id="@+id/btnStop"
+            android:onClick="stop"
+            android:visibility="gone" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Next"
             android:id="@+id/btnNext"
-            android:layout_centerVertical="true"
-            android:layout_toStartOf="@+id/btnPause"
             android:onClick="next" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Repeat"
+            android:id="@+id/btnRepeat"
+            android:onClick="repeat" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SHUFFLE"
+            android:id="@+id/btnShuffle"
+            android:onClick="shuffle" />
+
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Streaming"
+            android:id="@+id/switchStreaming"
+            android:layout_gravity="center_vertical"
+            android:checked="false" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Title :"
+            android:id="@+id/textView3"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Medium Text"
+            android:id="@+id/txtTitle"
+            android:layout_alignTop="@+id/textView3"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Artist :"
+            android:id="@+id/textView5"
+            android:layout_marginTop="23dp"
+            android:layout_below="@+id/textView3"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Medium Text"
+            android:id="@+id/txtArtist"
+            android:layout_alignTop="@+id/textView5"
+            android:layout_alignStart="@+id/txtTitle" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Album :"
+            android:id="@+id/textView7"
+            android:layout_below="@+id/textView5"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="24dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Medium Text"
+            android:id="@+id/txtAlbum"
+            android:layout_alignTop="@+id/textView7"
+            android:layout_alignStart="@+id/txtArtist" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Duration :"
+            android:id="@+id/textView9"
+            android:layout_below="@+id/textView7"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="26dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="00:00:00/00:00:00"
+            android:id="@+id/txtDuration"
+            android:layout_alignTop="@+id/textView9"
+            android:layout_alignStart="@+id/txtAlbum" />
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/pb"
+            android:layout_marginTop="113dp"
+            android:layout_below="@+id/txtDuration"
+            android:layout_centerHorizontal="true"
+            android:indeterminate="false"
+            android:visibility="gone" />
+    </RelativeLayout>
+
 </LinearLayout>
