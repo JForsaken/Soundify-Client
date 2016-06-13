@@ -27,7 +27,7 @@ public class PlayTask extends SoundifyTask {
     }
 
     @Override
-    protected Object doInBackground(Object[] objects) {
+    protected Object inBackground(Object[] objects) {
         Song song = null;
 
         try {
@@ -50,8 +50,7 @@ public class PlayTask extends SoundifyTask {
     }
 
     @Override
-    protected void onPostExecute(Object o) {
-        super.onPostExecute(o);
+    protected void postExecute(Object o) {
         Song song = (Song) o;
 
         if (song != null) {

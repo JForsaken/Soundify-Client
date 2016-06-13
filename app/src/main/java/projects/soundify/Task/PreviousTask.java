@@ -23,10 +23,11 @@ public class PreviousTask extends SoundifyTask {
     }
 
     @Override
-    protected Object doInBackground(Object[] objects) {
+    protected Object inBackground(Object[] objects) {
         Song song = null;
 
         try {
+            MusicTimer.getInstance().stop();
 
             song = gson.fromJson(executeGet(ACTION).body().string(), Song.class);
 
@@ -43,7 +44,7 @@ public class PreviousTask extends SoundifyTask {
     }
 
     @Override
-    protected void onPostExecute(Object o) {
+    protected void postExecute(Object o) {
         Song song = (Song) o;
 
         if (song != null) {

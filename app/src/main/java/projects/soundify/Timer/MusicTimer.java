@@ -100,6 +100,7 @@ public class MusicTimer {
 
                     if (_currentDuration > _duration) {
                         if (!MusicController.getInstance(_activity).isServerLooping()) {
+
                             HttpController.getInstance(_activity).next(_isStreaming);
                         }
                         else {

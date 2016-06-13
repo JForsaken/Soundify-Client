@@ -5,6 +5,7 @@ import android.widget.TextView;
 
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.util.TimerTask;
 
 import projects.soundify.Controller.MusicController;
 import projects.soundify.R;
@@ -23,10 +24,11 @@ public class NextTask extends SoundifyTask {
     }
 
     @Override
-    protected Object doInBackground(Object[] objects) {
+    protected Object inBackground(Object[] objects) {
         Song song = null;
 
         try {
+            MusicTimer.getInstance().stop();
 
             song = gson.fromJson(executeGet(ACTION).body().string(), Song.class);
 
@@ -34,8 +36,6 @@ public class NextTask extends SoundifyTask {
                 executeStream(song.getPath());
                 MusicController.getInstance(activity).play();
             }
-
-
         }
         catch (IOException e) {
             this.cancel(true);
@@ -45,7 +45,7 @@ public class NextTask extends SoundifyTask {
     }
 
     @Override
-    protected void onPostExecute(Object o) {
+    protected void postExecute(Object o) {
         Song song = (Song) o;
 
         if (song != null) {

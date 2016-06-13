@@ -2,6 +2,8 @@ package projects.soundify.Task;
 
 import android.app.Activity;
 import android.os.AsyncTask;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -15,6 +17,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import projects.soundify.Controller.MusicController;
+import projects.soundify.R;
 
 /**
  * Created by joseph on 2016-06-08.
@@ -74,4 +77,38 @@ public abstract class SoundifyTask extends AsyncTask {
         String encodedSongName = URLEncoder.encode(songName, "utf-8");
         MusicController.getInstance(activity).init(getServerUrl() + songFolder + encodedSongName);
     }
+
+    protected void showProgressBar() {
+        ProgressBar pb = (ProgressBar) activity.findViewById(R.id.pb);
+        pb.setVisibility(View.VISIBLE);
+    }
+
+    protected void hideProgressBar() {
+        ProgressBar pb = (ProgressBar) activity.findViewById(R.id.pb);
+        pb.setVisibility(View.GONE);
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+
+        showProgressBar();
+    }
+
+    @Override
+    protected Object doInBackground(Object[] objects) {
+        return inBackground(objects);
+    }
+
+    @Override
+    protected void onPostExecute(Object o) {
+        super.onPostExecute(o);
+
+        postExecute(o);
+
+        hideProgressBar();
+    }
+
+    protected abstract Object inBackground(Object[] objects);
+    protected abstract void postExecute(Object o);
 }

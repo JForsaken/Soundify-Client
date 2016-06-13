@@ -22,7 +22,7 @@ public class RepeatTask extends SoundifyTask {
     }
 
     @Override
-    protected Object doInBackground(Object[] objects) {
+    protected Object inBackground(Object[] objects) {
         try {
             if (isStreaming) {
                 MusicController.getInstance(activity).repeat();
@@ -40,8 +40,7 @@ public class RepeatTask extends SoundifyTask {
     }
 
     @Override
-    protected void onPostExecute(Object o) {
-        super.onPostExecute(o);
+    protected void postExecute(Object o) {
         updateView();
     }
 

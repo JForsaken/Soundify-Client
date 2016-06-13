@@ -29,7 +29,7 @@ public class MusicController {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
 
-                    if (_isServerLooping) {
+                    if (!_mediaPlayer.isLooping()) {
                         HttpController.getInstance(activity).next(true);
                     }
                 }
@@ -74,6 +74,10 @@ public class MusicController {
 
     public void setServerLooping() {
         _isServerLooping = !_isServerLooping;
+    }
+
+    public boolean isLooping() {
+        return _mediaPlayer.isLooping();
     }
 
     public boolean isServerLooping() {
